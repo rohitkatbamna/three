@@ -1,12 +1,14 @@
-import react, { useState } from "react";
+import react, { useState, useContext } from "react";
 import { View, Text, TextInput, StyleSheet, Button } from "react-native";
+import NumberContext from "../context/authContext";
 
-function Guess({ navigation, mynumber, setMynumber }) {
+function Guess({ navigation }) {
 	let inputvalue;
 	function handleChange(event) {
 		inputvalue = event.target.value;
 	}
-	console.log(mynumber);
+	const { myNumber, setMynumber } = useContext(NumberContext);
+	console.log(myNumber);
 	return (
 		<>
 			<View style={styles.container}>
@@ -28,8 +30,14 @@ function Guess({ navigation, mynumber, setMynumber }) {
 					alignContent: "center",
 					justifyContent: "space-around",
 				}}>
-				<Button title="Dam" onPress={() => setMynumber(inputvalue)} />
-				<Button title="Close" onPress={() => setMynumber(inputvalue)} />
+				<Button title="Close" />
+				<Button
+					title="Sumbit"
+					onPress={() => {
+						setMynumber(inputvalue);
+						navigation.navigate("ComputerCheck");
+					}}
+				/>
 			</View>
 		</>
 	);

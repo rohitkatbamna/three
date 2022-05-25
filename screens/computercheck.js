@@ -1,11 +1,13 @@
 import react from "react";
 import { View, Text } from "react-native";
 
-function Computercheck() {
+function Computercheck({ route, navigation }) {
+	const { thisnumber, setMynumber } = route.params;
+	console.log(thisnumber);
 	return (
 		<>
 			<View>
-				<Text></Text>
+				<Text>{thisnumber}</Text>
 			</View>
 		</>
 	);
