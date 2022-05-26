@@ -1,14 +1,15 @@
 import react, { useState, useContext } from "react";
-import { View, Text, TextInput, StyleSheet, Button } from "react-native";
-import NumberContext from "../context/authContext";
+import {
+	View,
+	Text,
+	TextInput,
+	StyleSheet,
+	Button,
+	Keyboard,
+} from "react-native";
 
 function Guess({ navigation }) {
-	let inputvalue;
-	function handleChange(event) {
-		inputvalue = event.target.value;
-	}
-	const { myNumber, setMynumber } = useContext(NumberContext);
-	console.log(myNumber);
+	const [mynumber, setMynumber] = useState(0);
 	return (
 		<>
 			<View style={styles.container}>
@@ -20,7 +21,7 @@ function Guess({ navigation }) {
 					placeholder="So What's the Number ?"
 					keyboardType="numeric"
 					style={styles.enternumber_input}
-					onChange={handleChange}
+					onChangeText={(num) => setMynumber(num)}
 				/>
 			</View>
 			<View
@@ -30,12 +31,13 @@ function Guess({ navigation }) {
 					alignContent: "center",
 					justifyContent: "space-around",
 				}}>
-				<Button title="Close" />
+				<Button title="Close" onPress={Keyboard.dismiss} />
 				<Button
 					title="Sumbit"
 					onPress={() => {
-						setMynumber(inputvalue);
-						navigation.navigate("ComputerCheck");
+						navigation.navigate("Details", {
+							mynumber,
+						});
 					}}
 				/>
 			</View>
